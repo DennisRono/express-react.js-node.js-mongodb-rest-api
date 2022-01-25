@@ -1,0 +1,116 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  border-style: border-box;
+  width: 100%;
+  overflow-x: hidden;
+  background-image: -webkit-gradient(linear, left top, right bottom, from(#cbdbff), to(#c3c9ff));
+  background-image: linear-gradient(to bottom right, #cbdbff, #c3c9ff);
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+     -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+  min-height: 100vh;
+}
+
+.playarea .controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.playarea .controls .controlsbuttons {
+  padding: 10px 30px;
+  border: 1px solid #777;
+  border-radius: 23px;
+  cursor: pointer;
+  margin: 0px 10px;
+  background-color: #fff;
+}
+
+.playarea .application {
+  margin: 0px 5%;
+}
+
+.playarea .application .newpost, .playarea .application .updatepost, .playarea .application .deletepost, .playarea .application .viewAllposts, .playarea .application .searchPost {
+  width: 60%;
+  display: none;
+  margin: 0px auto;
+}
+
+.playarea .application .newpost h2, .playarea .application .updatepost h2, .playarea .application .deletepost h2, .playarea .application .viewAllposts h2, .playarea .application .searchPost h2 {
+  font-size: 2.8rem;
+  line-height: 3.4rem;
+  margin-bottom: 0.8rem;
+  color: #002E6E;
+  font-family: "gibsonsemibold",Helvetica,Arial,sans-serif;
+}
+
+.playarea .application .newpost .form label, .playarea .application .updatepost .form label, .playarea .application .deletepost .form label, .playarea .application .viewAllposts .form label, .playarea .application .searchPost .form label {
+  font-size: 1.0rem !important;
+  line-height: 1.7rem !important;
+  font-family: "canada-type-gibson", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color: #2F3744;
+}
+
+.playarea .application .newpost .form .inputs, .playarea .application .updatepost .form .inputs, .playarea .application .deletepost .form .inputs, .playarea .application .viewAllposts .form .inputs, .playarea .application .searchPost .form .inputs {
+  padding: 10px;
+  width: 450px;
+  margin-bottom: 20px;
+  background-color: #bfc9ff;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: #2F3744;
+}
+
+.playarea .application .newpost .form .inputdescr, .playarea .application .updatepost .form .inputdescr, .playarea .application .deletepost .form .inputdescr, .playarea .application .viewAllposts .form .inputdescr, .playarea .application .searchPost .form .inputdescr {
+  width: 100%;
+  max-width: 700px;
+  min-height: 120px;
+  max-height: 300px;
+  padding: 10px;
+  font-size: 18px;
+  margin-bottom: 20px;
+  background-color: #bfc9ff;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: #2F3744;
+}
+
+.playarea .application .newpost .form .previous, .playarea .application .newpost .form .next, .playarea .application .updatepost .form .previous, .playarea .application .updatepost .form .next, .playarea .application .deletepost .form .previous, .playarea .application .deletepost .form .next, .playarea .application .viewAllposts .form .previous, .playarea .application .viewAllposts .form .next, .playarea .application .searchPost .form .previous, .playarea .application .searchPost .form .next {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: #6a7bfd;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  margin-right: 85px;
+}
+
+.playarea .application .newpost .form .sendButton, .playarea .application .updatepost .form .sendButton, .playarea .application .deletepost .form .sendButton, .playarea .application .viewAllposts .form .sendButton, .playarea .application .searchPost .form .sendButton {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  width: 250px;
+  color: white;
+  background-color: #4C60F6;
+  padding: 10px 40px;
+  border-radius: 5px;
+}
+
+.active {
+  display: block !important;
+}
+
+.activebutton {
+  margin: 0px 10px !important;
+  background-color: #ccbeff !important;
+  display: unset !important;
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,104 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    border-style: border-box;
+    width: 100%;
+    overflow-x: hidden;
+    background-image: linear-gradient(to bottom right, rgb(203, 219, 255), rgb(195, 201, 255));
+    text-rendering: optimizeLegibility;
+    text-size-adjust: 100%;
+    min-height: 100vh;
+}
+.playarea{
+    .controls{
+        text-align: center;
+        margin-top: 20px;
+        .controlsbuttons{
+            padding: 10px 30px;
+            border: 1px solid #777;
+            border-radius: 23px;
+            cursor: pointer;
+            margin: 0px 10px;
+            background-color: #fff;
+        }
+    }
+    .application{
+        margin: 0px 5%;
+        .newpost, .updatepost, .deletepost, .viewAllposts, .searchPost{
+
+            width: 60%;
+            display: none;
+            margin: 0px auto;
+            h2{
+                font-size: 2.8rem;
+                line-height: 3.4rem;
+                margin-bottom: 0.8rem;
+                color: #002E6E;
+                font-family: "gibsonsemibold",Helvetica,Arial,sans-serif;
+            }
+            .form{
+                label{
+                    font-size: 1.0rem !important;
+                    line-height: 1.7rem !important;
+                    font-family: "canada-type-gibson", sans-serif;
+                    font-weight: 300;
+                    font-style: normal;
+                    color: #2F3744;
+                }
+                .inputs{
+                    padding: 10px;
+                    width: 450px;
+                    margin-bottom: 20px;
+                    background-color: rgb(191, 201, 255);
+                    outline: none;
+                    border: none;
+                    border-radius: 5px;
+                    color: #2F3744;
+                }
+                .inputdescr{
+                    width: 100%;
+                    max-width: 700px;
+                    min-height: 120px;
+                    max-height: 300px;
+                    padding: 10px;
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                    background-color: rgb(191, 201, 255);
+                    outline: none;
+                    border: none;
+                    border-radius: 5px;
+                    color: #2F3744;
+                }
+                .previous, .next{
+                    outline: none;
+                    cursor: pointer;
+                    border: none;
+                    color: rgb(255, 255, 255);
+                    background-color: #6a7bfd;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    margin: 10px 0px;
+                    margin-right: 85px;
+                }
+                .sendButton{
+                    outline: none;
+                    cursor: pointer;
+                    border: none;
+                    width: 250px;
+                    color: rgb(255, 255, 255);
+                    background-color: #4C60F6;
+                    padding: 10px 40px;
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+}
+.active{
+    display: block !important;
+}
+.activebutton{
+    margin: 0px 10px !important;
+    background-color: rgb(204, 190, 255) !important;
+    display: unset !important;
+}
