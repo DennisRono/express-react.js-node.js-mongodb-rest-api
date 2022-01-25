@@ -46,6 +46,30 @@ html, body {
   font-family: "gibsonsemibold",Helvetica,Arial,sans-serif;
 }
 
+.playarea .application .newpost div .postCard, .playarea .application .updatepost div .postCard, .playarea .application .deletepost div .postCard, .playarea .application .viewAllposts div .postCard, .playarea .application .searchPost div .postCard {
+  padding: 10px;
+  border: 1px solid #777;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.playarea .application .newpost div .postCard .postActions, .playarea .application .updatepost div .postCard .postActions, .playarea .application .deletepost div .postCard .postActions, .playarea .application .viewAllposts div .postCard .postActions, .playarea .application .searchPost div .postCard .postActions {
+  width: 100%;
+  text-align: right;
+}
+
+.playarea .application .newpost div .postCard .postActions .previous, .playarea .application .newpost div .postCard .postActions .next, .playarea .application .updatepost div .postCard .postActions .previous, .playarea .application .updatepost div .postCard .postActions .next, .playarea .application .deletepost div .postCard .postActions .previous, .playarea .application .deletepost div .postCard .postActions .next, .playarea .application .viewAllposts div .postCard .postActions .previous, .playarea .application .viewAllposts div .postCard .postActions .next, .playarea .application .searchPost div .postCard .postActions .previous, .playarea .application .searchPost div .postCard .postActions .next {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  color: white;
+  background-color: #6a7bfd;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  margin-right: 10px;
+}
+
 .playarea .application .newpost .form label, .playarea .application .updatepost .form label, .playarea .application .deletepost .form label, .playarea .application .viewAllposts .form label, .playarea .application .searchPost .form label {
   font-size: 1.0rem !important;
   line-height: 1.7rem !important;

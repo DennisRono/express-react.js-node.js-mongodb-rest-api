@@ -6,7 +6,7 @@ const Post = require("../models/Post");
 router.get('/', async (req, res) => {
     try {
         const posts = await Post.find();
-        res.json(posts);
+        res.json({ "posts": posts });
     } catch (err) {
         res.json({ message: err });
     }
@@ -30,7 +30,7 @@ router.post("/", async(req, res) => {
     });
     try {
         const savedpost = await post.save()
-        res.json(savedpost)
+        res.json({ "posts": savedpost })
     } catch (err) {
         res.json({ message: err });
     }

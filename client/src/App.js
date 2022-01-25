@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style/style.css'
+import axios from "axios"
 
 const defaultButtons = [
   {id: 1, bname:"all posts"},
   {id: 2, bname:"new post"},
-  {id: 3, bname:"update a post"},
-  {id: 4, bname:"delete a post"},
-  {id: 5, bname:"search"}
+  {id: 3, bname:"search"}
 ];
 
 const App = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [query, setQuery] = useState("");
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [toggledButtonId, setToggledButtonId] = useState(1);
 
   const userData = {
@@ -31,30 +34,54 @@ const App = () => {
         window.alert(error);
         return;
     });
+    setTitle("")
+    setDescription("")
   }
   const handleUpdatePost = async (e) => {
     e.preventDefault()
   }
-  const handleDeletePost = async (e) => {
-    e.preventDefault()
+  const deletePost = async (articleId) => {
+      await axios.delete('/posts/'+articleId)
+      .then(response => console.log('Delete successful'))
+      .catch(error => {
+          setError(error.message);
+          console.error('There was an error!', error);
+      });
   }
   const handleSearchPost = async (e) => {
     e.preventDefault()
+    let results = [];
+    let arr = data.posts;
+    for (var i = 0; i < arr.length+1; i++) {
+        let obj = arr.find(o => o.title.toLowerCase().includes(query.toLowerCase()));
+        results.push(obj)
+        arr = arr.filter(item => item !== obj)
+    }
+    console.log(results);
   }
   function toggleButton(button) {
       setToggledButtonId(button.id);
       let theactive = button.id;
       const newpost = document.querySelector('.newpost');
-      const updatepost = document.querySelector('.updatepost');
-      const deletepost = document.querySelector('.deletepost');
       const searchpost = document.querySelector('.searchPost');
       const viewallposts = document.querySelector('.viewAllposts');
       theactive === 1 ? viewallposts.classList.add('active') : viewallposts.classList.remove('active');
       theactive === 2 ? newpost.classList.add('active') : newpost.classList.remove('active');
-      theactive === 3 ? updatepost.classList.add('active') : updatepost.classList.remove('active');
-      theactive === 4 ? deletepost.classList.add('active') : deletepost.classList.remove('active');
-      theactive === 5 ? searchpost.classList.add('active') : searchpost.classList.remove('active');
+      theactive === 3 ? searchpost.classList.add('active') : searchpost.classList.remove('active');
   }
+  useEffect(() => {
+      axios("/posts")
+      .then((response) => {
+      setData(response.data);
+      })
+      .catch((error) => {
+      console.error("Error fetching data: ", error);
+      setError(error);
+      })
+      .finally(() => {
+      setLoading(false);
+      });
+  }, [deletePost, toggleButton]);
   return (
     <div className="playarea">
       <div className="controls">
@@ -102,18 +129,21 @@ const App = () => {
             <input type="submit" value="update" className="sendButton" />
           </form>
         </div>
-        <div className="deletepost">
-          <h2>Delete a post</h2>
-          <form className="form" onSubmit={handleDeletePost}>
-            <label htmlFor="title">
-              title:
-            </label><br/>
-            <input type="text" className="inputs" value={title} onChange={e => setTitle(e.target.value)} /><br/>
-            <input type="submit" value="delete" className="sendButton" />
-          </form>
-        </div>
         <div className="viewAllposts active">
           <h2>All posts</h2>
+          <div>
+            { error ? <p>Error fetching posts!</p>  : loading ? <p>Loading...</p> : data.posts.map(post => {
+              return (
+                <div key={post._id} className="postCard">
+                  <h3>{post.title}</h3>
+                  <p>{post.description}</p>
+                  <div className="postActions">
+                  <button className="previous">Update</button> <button className="next" style={{ backgroundColor: "red"}} onClick={()=>deletePost(post._id)}>Delete</button><br/>
+                  </div>
+                </div>
+                )
+            })}
+            </div>
         </div>
         <div className="searchPost">
           <h2>Search for a post</h2>
@@ -121,7 +151,7 @@ const App = () => {
             <label htmlFor="title">
               title:
             </label><br/>
-            <input type="text" className="inputs" value={title} onChange={e => setTitle(e.target.value)} /><br/>
+            <input type="text" className="inputs" value={query} onChange={e => setQuery(e.target.value)} /><br/>
             <input type="submit" value="search" className="sendButton" />
           </form>
         </div>
