@@ -1,77 +1,52 @@
-# express-react.js-node.js-mongodb-rest-api
-GitHub Markup
+express-react.js-node.js-mongodb-rest-api
+=========================================
+
+installation
 =============
-
-This library is the **first step** of a journey that every markup file in a repository goes on before it is rendered on GitHub.com:
-
-1. `github-markup` selects an _underlying library_ to convert the raw markup to HTML. See the list of [supported markup formats](#markups) below.
-1. The HTML is sanitized, aggressively removing things that could harm you and your kin—such as `script` tags, inline-styles, and `class` or `id` attributes.
-1. Syntax highlighting is performed on code blocks. See [github/linguist](https://github.com/github/linguist#syntax-highlighting) for more information about syntax highlighting.
-1. The HTML is passed through other filters that add special sauce, such as emoji, task lists, named anchors, CDN caching for images, and autolinking.
-1. The resulting HTML is rendered on GitHub.com.
-
-Please note that **only the first step** is covered by this gem — the rest happens on GitHub.com.  In particular, `markup` itself does no sanitization of the resulting HTML, as it expects that to be covered by whatever pipeline is consuming the HTML.
-
-Please see our [contributing guidelines](CONTRIBUTING.md) before reporting an issue.
-
-Markups
--------
-
-The following markups are supported.  The dependencies listed are required if
-you wish to run the library. You can also run `script/bootstrap` to fetch them all.
-
-* [.markdown, .mdown, .mkdn, .md](http://daringfireball.net/projects/markdown/) -- `gem install commonmarker` (https://github.com/gjtorikian/commonmarker)
-* [.textile](https://www.promptworks.com/textile) -- `gem install RedCloth` (https://github.com/jgarber/redcloth)
-* [.rdoc](https://ruby.github.io/rdoc/) -- `gem install rdoc -v 3.6.1`
-* [.org](http://orgmode.org/) -- `gem install org-ruby` (https://github.com/wallyqs/org-ruby)
-* [.creole](http://wikicreole.org/) -- `gem install creole` (https://github.com/larsch/creole)
-* [.mediawiki, .wiki](http://www.mediawiki.org/wiki/Help:Formatting) -- `gem install wikicloth` (https://github.com/nricciar/wikicloth)
-* [.rst](http://docutils.sourceforge.net/rst.html) -- `pip install docutils`
-* [.asciidoc, .adoc, .asc](http://asciidoc.org/) -- `gem install asciidoctor` (http://asciidoctor.org)
-* [.pod](http://search.cpan.org/dist/perl/pod/perlpod.pod) -- `Pod::Simple::XHTML`
-  comes with Perl >= 5.10. Lower versions should install Pod::Simple from CPAN.
-
-Installation
------------
-
+clone this repository by running
 ```
-gem install github-markup
+git clone https://github.com/DennisRono/express-react.js-node.js-mongodb-rest-api.git
+```
+then enter into the directory by running
+```
+cd express-react.js-node.js-mongodb-rest-api
 ```
 
-or
-
+download the backend packages by running
 ```
-bundle install
+npm i
 ```
-
-from this directory.
-
-Usage
------
-
-Basic form:
-
-```ruby
-require 'github/markup'
-GitHub::Markup.render('README.markdown', "* One\n* Two")
+then enter the client frontend directory
+```
+cd client
+```
+install the frontend packages
+```
+npm i
 ```
 
-More realistic form:
-
-```ruby
-require 'github/markup'
-GitHub::Markup.render(file, File.read(file))
+setting up your mongodb database connection
+===========================================
+create a `config.env` file on the parent directory
+```
+touch config.env
+```
+type the following in the config.env file
+```
+ATLAS_URI=<your mongodb connection string with username and password and database name>
 ```
 
-And a convenience form:
-
-```ruby
-require 'github/markup'
-GitHub::Markup.render_s(GitHub::Markups::MARKUP_MARKDOWN, "* One\n* Two")
+usage
+=====
+while on the parent directory run
 ```
+npm run serve
+```
+this starts your backend server
 
+enter the client directory and run
+```
+npm start
+```
+this starts your frontend server
 
-Contributing
-------------
-
-See [Contributing](CONTRIBUTING.md).
