@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './style/style.css'
 import axios from "axios"
 
@@ -13,6 +13,8 @@ const App = () => {
   const [description, setDescription] = useState("");
   const [query, setQuery] = useState("");
   const [data, setData] = useState(null);
+  const [postid, setPostid] = useState("");
+  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [toggledButtonId, setToggledButtonId] = useState(1);
@@ -37,10 +39,7 @@ const App = () => {
     setTitle("")
     setDescription("")
   }
-  const handleUpdatePost = async (e) => {
-    e.preventDefault()
-  }
-  const deletePost = async (articleId) => {
+  const deletePost = async(articleId) => {
       await axios.delete('/posts/'+articleId)
       .then(response => console.log('Delete successful'))
       .catch(error => {
@@ -48,27 +47,58 @@ const App = () => {
           console.error('There was an error!', error);
       });
   }
+  const updatePost = useCallback(async (articleId) => {
+    await axios("/posts/"+articleId)
+    .then((response) => {
+      if(response.data !== null){
+        setTitle(response.data.title);
+        setDescription(response.data.description);
+      }
+      const updatepost = document.querySelector('.updatepost');
+      const viewallposts = document.querySelector('.viewAllposts');
+      viewallposts.classList.remove('active');
+      updatepost.classList.add('active');
+    })
+    return articleId;
+  }, [])
+  const handleUpdatePost = async (e) => {
+    e.preventDefault()
+    const theupdate = {
+      "title": title,
+      "description": description
+    }
+    axios.patch('http://localhost:5000/posts/'+postid, theupdate)
+        .then(response => console.log(response.data));
+    const updatepost = document.querySelector('.updatepost');
+    const viewallposts = document.querySelector('.viewAllposts');
+    viewallposts.classList.add('active');
+    updatepost.classList.remove('active');
+  }
   const handleSearchPost = async (e) => {
     e.preventDefault()
-    let results = [];
     let arr = data.posts;
+    let resul = [];
     for (var i = 0; i < arr.length+1; i++) {
         let obj = arr.find(o => o.title.toLowerCase().includes(query.toLowerCase()));
-        results.push(obj)
+        resul.push(obj) 
         arr = arr.filter(item => item !== obj)
     }
+    resul = resul.filter(item => !!item);
+    setResults(resul)
     console.log(results);
   }
-  function toggleButton(button) {
+  const toggleButton = useCallback((button) => {
       setToggledButtonId(button.id);
       let theactive = button.id;
       const newpost = document.querySelector('.newpost');
       const searchpost = document.querySelector('.searchPost');
       const viewallposts = document.querySelector('.viewAllposts');
+      const updatepost = document.querySelector('.updatepost');
       theactive === 1 ? viewallposts.classList.add('active') : viewallposts.classList.remove('active');
       theactive === 2 ? newpost.classList.add('active') : newpost.classList.remove('active');
       theactive === 3 ? searchpost.classList.add('active') : searchpost.classList.remove('active');
-  }
+      updatepost.classList.remove('active');
+  }, []);
   useEffect(() => {
       axios("/posts")
       .then((response) => {
@@ -81,7 +111,7 @@ const App = () => {
       .finally(() => {
       setLoading(false);
       });
-  }, [deletePost, toggleButton]);
+  }, [deletePost, toggleButton, updatePost, handleUpdatePost]);
   return (
     <div className="playarea">
       <div className="controls">
@@ -132,7 +162,30 @@ const App = () => {
         <div className="viewAllposts active">
           <h2>All posts</h2>
           <div>
-            { error ? <p>Error fetching posts!</p>  : loading ? <p>Loading...</p> : data.posts.map(post => {
+            { error ? <p>Error fetching posts!</p>  : loading ? <p>Loading...</p> : data.posts.slice(0).reverse().map(post => {
+              return (
+                <div key={post._id} className="postCard">
+                  <h3>{post.title}</h3>
+                  <p>{post.description}</p>
+                  <div className="postActions">
+                  <button className="previous" onClick={()=>{updatePost(post._id); setPostid(post._id)}}>Update</button> <button className="next" style={{ backgroundColor: "red"}} onClick={()=>deletePost(post._id)}>Delete</button><br/>
+                  </div>
+                </div>
+                )
+            })}
+            </div>
+        </div>
+        <div className="searchPost">
+          <h2>Search for a post</h2>
+          <form className="form" onSubmit={handleSearchPost}>
+            <label htmlFor="title">
+              search by the title:
+            </label><br/>
+            <input type="text" className="inputs" value={query} onChange={e => setQuery(e.target.value)} /><br/>
+            <input type="submit" value="search" className="sendButton" style={{ marginBottom: "20px"}}/>
+          </form>
+          <div>
+            { error ? <p>Error fetching posts!</p>  : loading ? <p>Loading...</p> : results.length === 0 ? <p>No results found!</p> : results.map(post => {
               return (
                 <div key={post._id} className="postCard">
                   <h3>{post.title}</h3>
@@ -144,16 +197,6 @@ const App = () => {
                 )
             })}
             </div>
-        </div>
-        <div className="searchPost">
-          <h2>Search for a post</h2>
-          <form className="form" onSubmit={handleSearchPost}>
-            <label htmlFor="title">
-              title:
-            </label><br/>
-            <input type="text" className="inputs" value={query} onChange={e => setQuery(e.target.value)} /><br/>
-            <input type="submit" value="search" className="sendButton" />
-          </form>
         </div>
       </div>
     </div>
