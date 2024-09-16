@@ -14,7 +14,7 @@
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "mongodb": "^4.3.1",
-    "mongoose": "^6.2.9",
+    "mongoose": "^6.11.3",
     "nodemon": "^2.0.15"
   }
 }
